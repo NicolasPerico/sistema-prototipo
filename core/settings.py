@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 import os
 import sys
 from dotenv import load_dotenv 
+# Configuração de Messages (Class Boostrap) #
+from django.contrib.messages import constants
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -84,7 +86,8 @@ THIRD_APPS = [ # são as Lib/app que instalamos no projeto
 ]   
 
 PROJECT_APPS = [ # são os apps que criamos no projeto 
-	'apps.base'
+	'apps.base',
+	'apps.pages',
 ]
 
 # INSTALLED_APPS é a variavel que django entende para fazer a leitura \
@@ -112,9 +115,12 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+				'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+				# Apps
+                'core.context_processors.context_social', 
             ],
         },
     },
@@ -235,3 +241,11 @@ EMAIL_PORT = os.getenv('EMAIL_PORT')
 EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS') 
 DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL')
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
+
+MESSAGE_TAGS = {
+	constants.ERROR: 'alert-danger',
+	constants.WARNING: 'alert-warning',
+	constants.DEBUG: 'alert-danger',
+	constants.SUCCESS: 'alert-success',
+	constants.INFO: 'alert-info',
+}

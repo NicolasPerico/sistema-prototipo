@@ -18,9 +18,14 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path
+from apps.base.views import base_view
+from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('base/', base_view, name='base'),  # Inclui a view base
+
+    path('', include('pages.urls')),  # Inclui as URLs do app 'pages'
 ]
 
 if settings.DEBUG:
